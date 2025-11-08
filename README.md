@@ -12,5 +12,6 @@ thin layer sediment placement in 2023.
 
 ## Who to contact
 This work is led by Ph.D. candidate Marjorie Mednikova in Dr. Gregg Moore's 
-lab group at the University of New Hampshire. 
+lab group at the University of New Hampshire. For any questions about bioinformatics, 
+please contact Ashley Bulseco. 
 

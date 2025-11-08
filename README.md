@@ -14,4 +14,3 @@ thin layer sediment placement in 2023.
 This work is led by Ph.D. candidate Marjorie Mednikova in Dr. Gregg Moore's 
 lab group at the University of New Hampshire. 
 
-<img src="images/pilot-tlp.jpeg" alt="salt marsh with boxes filled with sediment to mimic large scale thin layer sediment placement as a salt marsh restoration technique" width="50%" />

@@ -60,6 +60,7 @@ BC_distance <- phyloseq::distance(per.f.final, "bray")
 bcOrd <- ordinate(per.f.final, "NMDS", BC_distance)
 plot_scree(bcOrd)
 
+# Are there other environmental variables you want to look for?
 p1 <- plot_ordination(per.f.final, bcOrd, type = "samples") +
   geom_point(aes(fill = Treatment), shape = 21, color = "black", stroke = 0.5, size = 5, alpha = 0.9) +
   scale_fill_viridis_d(option = "C") +
@@ -68,8 +69,45 @@ p1 <- plot_ordination(per.f.final, bcOrd, type = "samples") +
 p1
 
 p2 <- plot_ordination(per.f.final, bcOrd, type = "samples") +
-  geom_point(aes(color = Treatment, shape = Timepoint), size = 5, alpha = 0.9) +
-  scale_color_viridis_d(option = "C") +
+  geom_point(aes(color = Treatment, shape = Location), size = 5, alpha = 0.9) +
+  scale_color_viridis_d(option = "D") +
   pretty.theme() +
-  labs(fill = "Treatment")
+  labs(color = "Treatment", shape = "Location")
 p2
+
+\# Alpha diversity----
+# But need to rarefy
+alpha_plot <- plot_richness(per.f.final, x = "Treatment", measures = "Shannon") +
+  geom_boxplot(aes(fill = Treatment)) +
+  pretty.theme() +
+  scale_fill_viridis_d(option = "C") +
+  labs(y="Shannon Diversity", x = "Treatment") +
+  theme(strip.background = element_blank(),
+        strip.text = element_blank())
+alpha_plot
+
+# Barplot----
+# Top 20 most abundant by genus
+# Aggregate at the Genus level
+phy_family <- tax_glom(per.f.final, taxrank = "Family")
+taxa_sums <- taxa_sums(phy_family)
+top20_taxa <- names(sort(taxa_sums, decreasing = TRUE))[1:20]
+phy_top20 <- prune_taxa(top20_taxa, phy_family)
+
+df_top20 <- psmelt(phy_top20)
+
+pal_20 <- c(
+  "#66C2A5", "#FC8D62", "#8DA0CB", "#FB9A99", "#A6D854",
+  "#FFD92F", "#E5C494", "#B3B3B3", "#1B9E77", "#D95F02",
+  "#7570B3", "#c22131", "#66A61E", "#E6AB02", "#A6761D",
+  "#d98302", "#A9A9F5", "#15425e", "#B2DF8A", "#1F78B4"
+)
+
+# Check the colors
+bar_plot <- ggplot(df_top20, aes(x = Treatment, y = Abundance, fill = Family)) +
+  geom_bar(stat = "identity", position = "stack") +
+  scale_fill_manual(values = pal_20) +
+  labs(x = "Depth (cm)", y = "Relative Abundance", fill = "Family") +
+  pretty.theme()
+# theme(legend.position = "none")
+bar_plot

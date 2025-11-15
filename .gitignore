@@ -50,3 +50,12 @@ rsconnect/
 
 # Rproject
 .Rproj
+
+# pdf
+.pdf
+
+# png
+.png
+
+# jpeg
+.jpg

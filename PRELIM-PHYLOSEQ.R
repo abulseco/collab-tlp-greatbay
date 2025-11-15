@@ -1,4 +1,6 @@
 # Phyloseq analysis for CERF 2025
+# Next step: Analyze two additional timepointes
+# Re-run and merge
 
 # Setup----
 # load libraries
@@ -75,7 +77,7 @@ p2 <- plot_ordination(per.f.final, bcOrd, type = "samples") +
   labs(color = "Treatment", shape = "Location")
 p2
 
-\# Alpha diversity----
+# Alpha diversity----
 # But need to rarefy
 alpha_plot <- plot_richness(per.f.final, x = "Treatment", measures = "Shannon") +
   geom_boxplot(aes(fill = Treatment)) +
